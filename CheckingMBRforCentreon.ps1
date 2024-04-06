@@ -17,16 +17,12 @@ Write-Host Count of MBR volumes: $mbrVolumesCount
 $disksObject | Sort-Object DriveLetter | Format-Table -AutoSize
 
 $Disks = Get-Disk | Where-Object -FilterScript {($_.Size/1GB)}
-    $FindDisk = $false
     foreach ($Disk in $Disks) {
     $SizeGB = [math]::Round($Disk.Size/1GB,2)
 
-    if ($Disk.PartitionStyle -eq 'MBR' -and $SizeGB -gt 150) {
+    if ($Disk.PartitionStyle -eq 'MBR' -and $SizeGB -gt 1500) {
         Write-Host "tutaj"
-        $FindDisk = $true
         exit 1
-    }
-    elseif (-not $FindDisk){
     }
     }
     Write-Host 'to nie ten'   
